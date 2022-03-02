@@ -19,8 +19,24 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-function HomePage() {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+function HomePage(props) {
+  return <MeetupList meetups={props.meetups} />;
+}
+
+
+//getStaticProps - is reserved word
+//getStaticProps calls static props such as DUMMY_MEETUPS before it calls component functions 
+//the job of getStaticProps to prepare props for componet functions
+//the purpose of this static props is that it waits when the data is loaded and then returns this data to the component 
+//DUMMY_MEETUPS will be used as props for HomePage component
+//this is how we can move data fetching from the client side to the server side during the build process
+export async function getStaticProps() {
+  // fetch data from an API
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS
+    }
+  }; 
 }
 
 export default HomePage;
